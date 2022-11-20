@@ -8,7 +8,7 @@ public class ReservationDAO {
    public ReservationDAO() {
       jdbcUtil = new JDBCUtil();
    }
-  
+ 
    //클래스 예약하기
    public int classReservation(String classId) throws SQLException {
       String query = "select * from class where maxNum ≠ currenNum";
