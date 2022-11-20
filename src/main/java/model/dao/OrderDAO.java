@@ -38,7 +38,7 @@ public class OrderDAO {
          jdbcUtil.close();
       }
       return null;
-   }
+   } 
    
    //주문자 정보 입력
    public int ConsumerInfo (ConsumerInfo consumerInfo) throws SQLException{
