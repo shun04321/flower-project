@@ -5,9 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import model.User;
-
-// Seller 구현 필요
+import model.Customer;
+import model.Seller;
 
 public class UserDAO {
 	private JDBCUtil jdbcUtil = null;
@@ -16,8 +15,8 @@ public class UserDAO {
 		jdbcUtil = new JDBCUtil();
 	}
 		
-	// 회원 가입
-	public int create(Customer customer) throws SQLException {
+	// Customer 회원 가입
+	public int createCustomer(Customer customer) throws SQLException {
 		String sql = "INSERT INTO customer VALUES (?, ?, ?, ?, ?, ?)";		
 		Object[] param = new Object[] {customer.getCustomerId(), customer.getPwd(), customer.getName(), 
 										customer.getPhone(), customer.getEmail(), customer.getAddress()};				
@@ -36,13 +35,56 @@ public class UserDAO {
 		return 0;			
 	}
 
-	// 회원 정보 수정
-	public int update(Customer customer) throws SQLException {
+	// Seller 회원 가입
+	public int createSeller(Seller seller) throws SQLException {
+		String sql = "INSERT INTO seller VALUES (?, ?, ?, ?, ?)";		
+		Object[] param = new Object[] {seller.getSellerId(), seller.getPwd(), seller.getName(), 
+										seller.getPhone(), seller.getEmail()};				
+		jdbcUtil.setSqlAndParameters(sql, param);
+						
+		try {				
+			int result = jdbcUtil.executeUpdate();
+			return result;
+		} catch (Exception ex) {
+			jdbcUtil.rollback();
+			ex.printStackTrace();
+		} finally {		
+			jdbcUtil.commit();
+			jdbcUtil.close();
+		}		
+		return 0;			
+	}
+	
+	// Customer 회원 정보 수정
+	public int updateCustomer(Customer customer) throws SQLException {
 		String sql = "UPDATE customer "
 					+ "SET pwd=?, name=?, phone=?, email=?, address=? "
 					+ "WHERE customerId=?";
 		Object[] param = new Object[] {customer.getPwd(), customer.getName(), customer.getPhone(), 
-										customer.getEmail(), customer.getAddress(), customer.getUserId()};				
+										customer.getEmail(), customer.getAddress(), customer.getCustomerId()};				
+		jdbcUtil.setSqlAndParameters(sql, param);
+		
+		try {				
+			int result = jdbcUtil.executeUpdate();
+			return result;
+		} catch (Exception ex) {
+			jdbcUtil.rollback();
+			ex.printStackTrace();
+		}
+		finally {
+			jdbcUtil.commit();
+			jdbcUtil.close();
+		}		
+		return 0;
+	}
+	
+	// Seller 회원 정보 수정
+	public int updateSeller(Seller seller) throws SQLException {
+		String sql = "UPDATE seller "
+					+ "SET pwd=?, name=?, phone=?, email=? "
+					+ "WHERE sellerId=?";
+		Object[] param = new Object[] {seller.getPwd(), seller.getName(), seller.getPhone(), 
+										seller.getEmail(), seller.getSellerId()};				
 		jdbcUtil.setSqlAndParameters(sql, param);
 		
 		try {				
@@ -59,8 +101,8 @@ public class UserDAO {
 		return 0;
 	}
 
-	// 로그인
-	public int login(String customerId, String pwd) throws SQLException {
+	// Customer 로그인
+	public int loginCustomer(String customerId, String pwd) throws SQLException {
 		String sql = "SELECT pwd FROM customer WHERE customerId=?";		
 		jdbcUtil.setSqlAndParameters(sql, new Object[] {customerId});
 		
@@ -68,10 +110,8 @@ public class UserDAO {
 			int result = jdbcUtil.executeUpdate();
 
 			if(result.next()) {
-				if(customerId.equals("admin") && result.getString(1).equals(pwd))
-					return 1; //관리자 로그인 성공 
-				else if(result.getString(1).equals(pwd))
-					return 2; //사용자 로그인 성공
+				if(result.getString(1).equals(pwd))
+					return 1; //사용자 로그인 성공
 				else 
 					return 0; //비밀번호 불일치
 			}
@@ -87,8 +127,34 @@ public class UserDAO {
 		return 0;
 	}
 	
-	// 회원 탈퇴
-	public int remove(String customerId) throws SQLException {
+	// Seller 로그인
+	public int loginSeller(String sellerId, String pwd) throws SQLException {
+		String sql = "SELECT pwd FROM seller WHERE sellerId=?";		
+		jdbcUtil.setSqlAndParameters(sql, new Object[] {sellerId});
+		
+		try {				
+			int result = jdbcUtil.executeUpdate();
+
+			if(result.next()) {
+				if(result.getString(1).equals(pwd))
+					return 1; //사용자 로그인 성공
+				else 
+					return 0; //비밀번호 불일치
+			}
+			return -1; //존재하지 않는 아이디
+		} catch (Exception ex) {
+			jdbcUtil.rollback();
+			ex.printStackTrace();
+		}
+		finally {
+			jdbcUtil.commit();
+			jdbcUtil.close();
+		}		
+		return 0;
+	}
+	
+	// Customer 회원 탈퇴
+	public int removeCustomer(String customerId) throws SQLException {
 		String sql = "DELETE FROM customer WHERE customerId=?";		
 		jdbcUtil.setSqlAndParameters(sql, new Object[] {customerId});
 		
@@ -106,8 +172,8 @@ public class UserDAO {
 		return 0;
 	}
 
-	// 회원 상세 조회
-	public Customer findUser(String customerId) throws SQLException {
+	// Customer 회원 상세 조회
+	public Customer findCustomer(String customerId) throws SQLException {
         String sql = "SELECT * FROM customer WHERE customerId=?";              
 		jdbcUtil.setSqlAndParameters(sql, new Object[] {customerId});
 
@@ -131,8 +197,8 @@ public class UserDAO {
 		return null;
 	}
 
-	// 회원 목록 조회 - customer 테이블 전체를 List로 반환하는 함수
-	public List<Customer> findUserList() throws SQLException {
+	// Customer 회원 목록 조회 - 테이블 전체를 List로 반환
+	public List<Customer> findCustomerList() throws SQLException {
         String sql = "SELECT * FROM customer ORDER BY customerId";
 		jdbcUtil.setSqlAndParameters(sql, null);
 					
@@ -156,8 +222,8 @@ public class UserDAO {
 		return null;
 	}
 	
-	// 회원 목록 조회 - customer 테이블 전체를 List로 반환하는 함수 (현재 페이지, 페이지당 출력할 사용자 수)
-	public List<Customer> findUserList(int currentPage, int countPerPage) throws SQLException {
+	// Customer 회원 목록 조회 - 테이블 전체를 List로 반환 (현재 페이지, 페이지당 출력할 사용자 수)
+	public List<Customer> findCustomerList(int currentPage, int countPerPage) throws SQLException {
 		String sql = "SELECT * FROM customer ORDER BY customerId";
 		jdbcUtil.setSqlAndParameters(sql, null, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);						
 		
@@ -186,8 +252,8 @@ public class UserDAO {
 		return null;
 	}
 	
-	//아이디 중복체크 함수
-	public boolean existingUser(String customerId) throws SQLException {
+	// Customer 아이디 중복체크 함수
+	public boolean existingCustomer(String customerId) throws SQLException {
 		String sql = "SELECT count(*) FROM customer WHERE customerId=?";      
 		jdbcUtil.setSqlAndParameters(sql, new Object[] {customerId});
 
