@@ -85,7 +85,7 @@ public class Order {
       return "Order [name=" + name + ", phone=" + phone + ", email=" + email + ", telephone=" + telephone
             + ", address=" + address + ", date=" + date + ", memo=" + memo + ", orderId=" + orderId + ", productId="
             + productId + ", quantity=" + quantity + ", price=" + price + "]";
-   }
+   } 
    
 
 
