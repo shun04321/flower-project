@@ -12,11 +12,11 @@
       padding: 5px;
     }
   </style>
-</head>
+</head> 
 <body>
 	<form name="aa" method="post" action="">
     <fieldset>
-      <legend>주문자 정보</legend>
+      <legend>주문자 정보</legend> 
       <label for="name">주문자 이름</label>
       <input type="text" id="name">
       <p/>
