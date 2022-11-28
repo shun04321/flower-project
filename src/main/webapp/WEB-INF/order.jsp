@@ -12,7 +12,7 @@
       padding: 5px;
     }
   </style>
-</head> 
+</head>
 <body>
 	<form name="aa" method="post" action="">
     <fieldset>
