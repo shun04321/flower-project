@@ -10,7 +10,7 @@
 <div class=page>
 	<div class=header>
 	    <div class=headerFrame>
-	      <span class="logo"><a href="#"><b>Flo:be</b></a></span>
+	      <span class="logo"><a href="#">Flo:be</a></span>
 	      <div class=menuFrame>
 	        <div class=topMenu>
 		        <span class="login"><a href="#">로그인</a></span>

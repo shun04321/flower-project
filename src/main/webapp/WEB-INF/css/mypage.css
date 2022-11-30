@@ -1,0 +1,341 @@
+.box1 { 
+	overflow:visible;
+}
+.box1 { 
+	width:1102px;
+	height:477px;
+	position:absolute;
+}
+.boxLeft { 
+	background-color:rgba(255, 255, 255, 1);
+	width:246px;
+	height:451px;
+	position:absolute;
+	left:0px;
+	top:0px;
+}
+.boxLeft { 
+	border:1px solid rgba(0, 0, 0, 1);
+}
+.navigation { 
+	width:228px;
+	height:353px;
+	position:absolute;
+	left:9px;
+	top:49px;
+}
+.order { 
+	width:228px;
+	height:43px;
+	position:absolute;
+	left:0px;
+	top:0px;
+}
+.orderManager { 
+	color:rgba(0, 0, 0, 1);
+	width:228px;
+	height:24px;
+	position:absolute;
+	left:0px;
+	top:0px;
+	font-family:Inter;
+	text-align:center;
+	font-size:20px;
+	letter-spacing:0;
+	font-weight:bold; 
+}
+.orderDetail { 
+	color:rgba(0, 0, 0, 1);
+	width:228px;
+	height:19px;
+	position:absolute;
+	left:0px;
+	top:24px;
+	font-family:Inter;
+	text-align:center;
+	font-size:16px;
+	letter-spacing:0;
+}
+.post { 
+	width:228px;
+	height:43px;
+	position:absolute;
+	left:0px;
+	top:145px;
+}
+.postManager { 
+	color:rgba(0, 0, 0, 1);
+	width:228px;
+	height:24px;
+	position:absolute;
+	left:0px;
+	top:0px;
+	font-family:Inter;
+	text-align:center;
+	font-size:20px;
+	letter-spacing:0;
+	font-weight:bold; 
+}
+.myPost { 
+	color:rgba(0, 0, 0, 1);
+	width:228px;
+	height:19px;
+	position:absolute;
+	left:0px;
+	top:24px;
+	font-family:Inter;
+	text-align:center;
+	font-size:16px;
+	letter-spacing:0;
+}
+.user { 
+	width:228px;
+	height:63px;
+	position:absolute;
+	left:0px;
+	top:290px;
+}
+.infoManager { 
+	color:rgba(0, 0, 0, 1);
+	width:228px;
+	height:24px;
+	position:absolute;
+	left:0px;
+	top:0px;
+	font-family:Inter;
+	text-align:center;
+	font-size:20px;
+	letter-spacing:0;
+	font-weight:bold; 
+}
+.updateInfo { 
+	color:rgba(0, 0, 0, 1);
+	width:228px;
+	height:19px;
+	position:absolute;
+	left:0px;
+	top:24px;
+	font-family:Inter;
+	text-align:center;
+	font-size:16px;
+	letter-spacing:0;
+}
+.box2 { 
+	width:807px;
+	height:477px;
+	position:absolute;
+	left:295px;
+	top:0px;
+}
+.boxTop { 
+	background-color:rgba(255, 255, 255, 1);
+	width:807px;
+	height:192px;
+	position:absolute;
+	left:0px;
+	top:0px;
+}
+.boxTop { 
+	border:1px solid rgba(0, 0, 0, 1);
+}
+.welcomeFrame { 
+	width:191px;
+	height:142px;
+	position:absolute;
+	left:308px;
+	top:25px;
+}
+.profileIcon { 
+	position:absolute;
+	left:50.5px;
+	top:0px;
+}
+.welcome { 
+	color:rgba(0, 0, 0, 1);
+	width:210px;
+	height:29px;
+	position:absolute;
+	left:0px;
+	top:113px;
+	font-family:Inter;
+	text-align:left;
+	font-size:24px;
+	letter-spacing:0;
+}
+.box3 { 
+	background-color:rgba(255, 255, 255, 1);
+	width:806px;
+	height:225px;
+	position:absolute;
+	left:0px;
+	top:252px;
+}
+.box3 { 
+	border:1px solid rgba(0, 0, 0, 1);
+}
+.boxBottom { 
+	width:700px;
+	height:165px;
+	position:absolute;
+	left:53px;
+	top:30px;
+}
+.orderProgress { 
+	color:rgba(0, 0, 0, 1);
+	width:696px;
+	height:24px;
+	position:absolute;
+	left:2px;
+	top:0px;
+	font-family:Inter;
+	text-align:left;
+	font-size:20px;
+	letter-spacing:0;
+}
+.progressFrame { 
+	width:700px;
+	height:111px;
+	position:absolute;
+	left:0px;
+	top:54px;
+}
+.progress1 { 
+	background-color:rgba(255, 250.9, 214.6, 1);
+	width:124px;
+	height:111px;
+	position:absolute;
+	left:0px;
+	top:0px;
+}
+.progress1 { 
+	border:1px solid rgba(0, 0, 0, 1);
+}
+.beforeDeposit { 
+	color:rgba(0, 0, 0, 1);
+	width:124px;
+	height:24px;
+	position:absolute;
+	left:0px;
+	top:20px;
+	font-family:Inter;
+	text-align:center;
+	font-size:20px;
+	letter-spacing:0;
+}
+.beforeDepositCnt { 
+	color:rgba(0, 0, 0, 1);
+	width:124px;
+	height:24px;
+	position:absolute;
+	left:0px;
+	top:67px;
+	font-family:Inter;
+	text-align:center;
+	font-size:20px;
+	letter-spacing:0;
+}
+.progress2 { 
+	background-color:rgba(255, 250.9, 214.6, 1);
+	width:124px;
+	height:111px;
+	position:absolute;
+	left:192px;
+	top:0px;
+}
+.progress2 { 
+	border:1px solid rgba(0, 0, 0, 1);
+}
+.preparing { 
+	color:rgba(0, 0, 0, 1);
+	width:124px;
+	height:24px;
+	position:absolute;
+	left:0px;
+	top:20px;
+	font-family:Inter;
+	text-align:center;
+	font-size:20px;
+	letter-spacing:0;
+}
+.preparingCnt { 
+	color:rgba(0, 0, 0, 1);
+	width:124px;
+	height:24px;
+	position:absolute;
+	left:0px;
+	top:67px;
+	font-family:Inter;
+	text-align:center;
+	font-size:20px;
+	letter-spacing:0;
+}
+.progress3 { 
+	background-color:rgba(255, 250.9, 214.6, 1);
+	width:124px;
+	height:111px;
+	position:absolute;
+	left:384px;
+	top:0px;
+}
+.progress3 { 
+	border:1px solid rgba(0, 0, 0, 1);
+}
+.delivering { 
+	color:rgba(0, 0, 0, 1);
+	width:124px;
+	height:24px;
+	position:absolute;
+	left:0px;
+	top:20px;
+	font-family:Inter;
+	text-align:center;
+	font-size:20px;
+	letter-spacing:0;
+}
+.deliveringCnt { 
+	color:rgba(0, 0, 0, 1);
+	width:124px;
+	height:24px;
+	position:absolute;
+	left:0px;
+	top:67px;
+	font-family:Inter;
+	text-align:center;
+	font-size:20px;
+	letter-spacing:0;
+}
+.progress4 { 
+	background-color:rgba(255, 250.9, 214.6, 1);
+	width:124px;
+	height:111px;
+	position:absolute;
+	left:576px;
+	top:0px;
+}
+.progress4 { 
+	border:1px solid rgba(0, 0, 0, 1);
+}
+.completed { 
+	color:rgba(0, 0, 0, 1);
+	width:124px;
+	height:24px;
+	position:absolute;
+	left:0px;
+	top:20px;
+	font-family:Inter;
+	text-align:center;
+	font-size:20px;
+	letter-spacing:0;
+}
+.completedCnt { 
+	color:rgba(0, 0, 0, 1);
+	width:124px;
+	height:24px;
+	position:absolute;
+	left:0px;
+	top:67px;
+	font-family:Inter;
+	text-align:center;
+	font-size:20px;
+	letter-spacing:0;
+}
