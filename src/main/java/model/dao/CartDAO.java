@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.CartItem;
-import util.JDBCUtil;
 
 public class CartDAO {
 	private JDBCUtil jdbcUtil = null;
@@ -17,9 +16,10 @@ public class CartDAO {
 	
 	// 장바구니 항목 조회(장바구니 페이지 첫 화면에 나오는 품목 리스트)
 	public List<CartItem> getCartItemList(String customerId) {
-		String query = "SELECT cartItemId, quantity, productId FROM CartItem where customerId = ?";
+		String query = "SELECT cartItemId, quantity, productId FROM CartItem "
+				+ "WHERE customerId = ? ORDER BY cartItemId";
 		
-		Object[] param = new Object[] { customerId };		// customerId = ? 의 매개변수 설정
+		Object[] param = new Object[] {customerId};		// customerId = ? 의 매개변수 설정
 		jdbcUtil.setSqlAndParameters(query, param);
 		
 		try { 
@@ -27,12 +27,16 @@ public class CartDAO {
 			List<CartItem> list = new ArrayList<CartItem>();		// list 객체 생성
 			while (rs.next()) {	
 				CartItem dto = new CartItem();		// 하나의 CartItem 객체 생성 후 정보 설정
+				
+				System.out.println("[" + rs.getInt("cartItemId") + ", "
+						+ rs.getInt("quantity") + "," + rs.getInt("productId") + "]");
+				
 				dto.setCartItemId(rs.getInt("cartItemId"));
 				dto.setQuantity(rs.getInt("quantity"));
 				dto.setProductId(rs.getInt("productId"));
 				list.add(dto);		// list 객체에 정보를 설정한 CartItem 객체 저장
 			}
-			return list;		// dto 들의 목록을 반환
+			return list;
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
@@ -43,18 +47,24 @@ public class CartDAO {
 	
 	// 장바구니에 등록
 	public int addItem(CartItem cartItem) {
-		int result = 0;
-		String query = "INSERT INTO CartItem (productId, quantity) VALUES(?) ";
+		String query = "INSERT INTO CartItem (cartItemId, productId, customerId, quantity) VALUES (Sequence_cartItem.nextVal, ?, ?, ?)";
 		
-		// query 문에 사용할 매개변수 값을 갖는 매개변수 배열 생성
-		Object[] param = new Object[] { cartItem.getProductId(), cartItem.getQuantity() };		
+		Object[] param = new Object[] {cartItem.getProductId(), cartItem.getCustomerId(), cartItem.getQuantity()};		
 		jdbcUtil.setSqlAndParameters(query, param);		
+		String key[] = {"cartItemId"};
 		
 		try {		
-			result = jdbcUtil.executeUpdate();		// insert 문 실행
-			System.out.println(cartItem.getCartItemId() + " item이 장바구니에 추가되었습니다.");
+			int result = jdbcUtil.executeUpdate(key);		// insert 문 실행
+			ResultSet rs = jdbcUtil.getGeneratedKeys();
+			int generatedKey = 0;
+			if(rs.next()) {
+				generatedKey = rs.getInt(1);
+				cartItem.setCartItemId(generatedKey);
+			}
+			System.out.println("item 추가 성공");
+			return result;	
 		} catch (SQLException ex) {
-			System.out.println("입력 오류 발생!!!");
+			System.out.println("입력 오류 발생");
 		} catch (Exception ex) {
 			jdbcUtil.rollback();
 			ex.printStackTrace();
@@ -62,19 +72,19 @@ public class CartDAO {
 			jdbcUtil.commit();
 			jdbcUtil.close();
 		}		
-		return result;	
+		return 0;	
 	}
 	
 	// 장바구니에서 삭제 (같은 상품이라도 다른 옵션이면 따로 표시되니까 productId 대신 cartItemId로 변경)
 	public int removeItem(int cartItemId) {
 		String query = "DELETE FROM CartItem WHERE cartItemId = ?";
 		
-		jdbcUtil.setSql(query);
-		Object[] param = new Object[] { cartItemId };
-		jdbcUtil.setParameters(param);
+		Object[] param = new Object[] {cartItemId};
+		jdbcUtil.setSqlAndParameters(query, param);
 		
 		try {
 			int result = jdbcUtil.executeUpdate();		// delete 문 실행
+			System.out.println("삭제 성공");
 			return result;						// delete 에 의해 반영된 레코드 수 반환
 		} catch (Exception ex) {
 			jdbcUtil.rollback();
@@ -90,19 +100,12 @@ public class CartDAO {
 	public int updateItem(CartItem cartItem) {
 		String query = "UPDATE CartItem SET quantity = ? WHERE cartItemId = ?";
 		
-		Object[] tempParam = new Object[2];		// update 문에 사용할 매개변수를 저장할 수 있는 임시 배열
-		
-		tempParam[0] = cartItem.getQuantity();
-		tempParam[1] = cartItem.getCartItemId();
-
-		Object[] newParam = new Object[2];
-		for (int i=0; i < newParam.length; i++)		
-			newParam[i] = tempParam[i];
-		
-		jdbcUtil.setSqlAndParameters(query, newParam);
+		Object[] param = new Object[] {cartItem.getQuantity(), cartItem.getCartItemId()};				
+		jdbcUtil.setSqlAndParameters(query, param);
 	
 		try {
 			int result = jdbcUtil.executeUpdate();		// update 문 실행
+			System.out.println("수정 성공");
 			return result;			// update 에 의해 반영된 레코드 수 반환
 		} catch (Exception ex) {
 			jdbcUtil.rollback();
