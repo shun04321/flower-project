@@ -29,14 +29,24 @@ public class RegisterUserController implements Controller {
 			return "/user/registerForm.jsp";   // 검색한 커뮤니티 리스트를 registerForm으로 전송     	
 	    }	
 
+		String user_phone1 = request.getParameter("phone1");
+		String user_phone2 = request.getParameter("phone2");
+		String user_phone3 = request.getParameter("phone3");
+		String user_phonenum = user_phone1 + user_phone2 + user_phone3;
+		
+		String user_addr1 = request.getParameter("addr1");
+		String user_addr2 = request.getParameter("addr2");
+		String user_addr3 = request.getParameter("addr3");
+		String user_address = user_addr1 + " " + user_addr2 + " " + user_addr3;	
+		
     	// POST request (회원정보가 parameter로 전송됨)
        	Customer customer = new Customer (
 			request.getParameter("customerId"),
 			request.getParameter("pwd"),
 			request.getParameter("name"),
-			request.getParameter("phone"),
+			user_phonenum,
 			request.getParameter("email"),
-			request.getParameter("address"));
+			user_address);
 		
         log.debug("Create User : {}", customer);
 
@@ -48,7 +58,7 @@ public class RegisterUserController implements Controller {
 		} catch (ExistingUserException e) {	// 예외 발생 시 회원가입 form으로 forwarding
             request.setAttribute("registerFailed", true);
 			request.setAttribute("exception", e);
-			request.setAttribute("user", customer);
+			request.setAttribute("customer", customer);
 			return "/user/registerForm.jsp";
 		}
     }

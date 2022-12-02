@@ -6,9 +6,60 @@
 %>
 <html>
 <head>
-<title>사용자 관리</title>
+<title>회원 정보</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel=stylesheet href="<c:url value='/css/user.css' />" type="text/css">
+<style>
+	a.main {
+		font-family: 'Nunito Sans', 'Noto Sans KR', sans-serif;
+	    cursor: pointer;
+	    display: inline-block;
+	    box-sizing: border-box;
+	    padding: 0 11px;
+	    font-size: 13px;
+	    font-weight: 300;
+	    text-decoration: none;
+	    vertical-align: middle;
+	    letter-spacing: -0.3px;
+	    color: #4e4c4a;
+	    text-align: center;
+	    white-space: nowrap;
+	    transition: 0.2s ease-in-out;
+	    background-color: transparent;
+	    border: 1px solid #eeeeee;
+	    height: 40px;
+	    line-height: 40px;
+	    word-break: keep-all;
+	    word-wrap: break-word;
+	    margin-left: 0px;
+	    width: 100px;
+	}
+	
+	a.write {
+		font-family: 'Nunito Sans', 'Noto Sans KR', sans-serif;
+	    cursor: pointer;
+	    display: inline-block;
+	    box-sizing: border-box;
+	    padding: 0 11px;
+	    border: 1px solid transparent;
+	    font-size: 13px;
+	    font-weight: 300;
+	    text-decoration: none;
+	    vertical-align: middle;
+	    letter-spacing: -0.3px;
+	    text-align: center;
+	    white-space: nowrap;
+	    transition: 0.2s ease-in-out;
+	    color: #ffffff;
+	    background-color: #222222;
+	    height: 40px;
+	    line-height: 40px;
+	    word-break: keep-all;
+	    word-wrap: break-word;
+	    margin-left: 6px;
+	    width: 100px;
+	}
+</style>
 <script>
 function userRemove() {
 	return confirm("정말 삭제하시겠습니까?");		
@@ -16,59 +67,67 @@ function userRemove() {
 </script>
 </head>
 <body>
-  <br>
-  <table style="width:100%">
-    <tr>
-	  <td width="20"></td>
-	  <td>
-	    <table>
-		  <tr>
-			<td class="title">&nbsp;&nbsp;<b>사용자 관리 - 상세정보 보기</b>&nbsp;&nbsp;</td>
-		  </tr>
-	    </table>  
-	    <br>	  	    
-	  	<table style="background-color: YellowGreen">
+<div align="center">
+	<br><br><br><br><br><br><br><br>
+		<table width="800" cellpadding="0" cellspacing="0">
+			<tr>
+				<td width="800" height="50">
+				<h2>회원 정보</h2>
+				</td>
+			</tr>
+		</table>
+		<br><br><br>
+	    <table class="list" border="1" align="center">
 	  	  <tr>
-			<td width="120" align="center" bgcolor="E6ECDE" height="22">사용자 ID</td>
-			<td width="470" bgcolor="ffffff" style="padding-left: 10">
-				<%=customer.getCustomerId()%>
+			<td align="center" width="150" height="50" bgcolor="#eeeeee">아이디</td>
+			<td style="border-left: 1px solid #eeeeee;">
+				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%=customer.getCustomerId()%>
 			</td>
 		  </tr>
 		  <tr>
-			<td width="120" align="center" bgcolor="E6ECDE" height="22">이름</td>
-			<td width="470" bgcolor="ffffff" style="padding-left: 10">
-				<%=customer.getName()%>
+			<td align="center" width="150" height="50" bgcolor="#eeeeee">이름</td>
+			<td style="border-left: 1px solid #eeeeee;">
+				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%=customer.getName()%>
 			</td>
 		  </tr>
 		  <tr>
-			<td width="120" align="center" bgcolor="E6ECDE" height="22">이메일 주소</td>
-			<td width="470" bgcolor="ffffff" style="padding-left: 10">
-				${customer.email} <%-- <%=user.getEmail()%> --%>
+			<td align="center" width="150" height="50" bgcolor="#eeeeee">전화번호</td>
+			<td style="border-left: 1px solid #eeeeee;">
+				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp${customer.phone} <%-- <%=user.getPhone()%> --%>
 			</td>
-		  </tr>		  
+		  </tr>	
 		  <tr>
-			<td width="120" align="center" bgcolor="E6ECDE" height="22">전화번호</td>
-			<td width="470" bgcolor="ffffff" style="padding-left: 10">
-				${customer.phone} <%-- <%=user.getPhone()%> --%>
+			<td align="center" width="150" height="50" bgcolor="#eeeeee">이메일</td>
+			<td style="border-left: 1px solid #eeeeee;">
+				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp${customer.email} <%-- <%=user.getEmail()%> --%>
 			</td>
 		  </tr>		  
+	  	<tr>
+			<td align="center" width="150" height="50" bgcolor="#eeeeee">주소</td>
+			<td style="border-left: 1px solid #eeeeee;">
+				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp${customer.address} <%-- <%=user.getAddress()%> --%>
+			</td>
+		  </tr>	
 	 	</table>
-	    <br>
-	    <a href="<c:url value='/user/update'>
-	     		   <c:param name='customerId' value='<%=customer.getCustomerId()%>'/>
-			 	 </c:url>">수정</a> &nbsp;
- 	    <a href="<c:url value='/user/delete'>
-				   <c:param name='customerId' value='<%=customer.getCustomerId()%>'/>
-			 	 </c:url>" onclick="return userRemove();">삭제</a> &nbsp;
- 	    <a href="<c:url value='/user/list' />">목록</a> 	    
- 	    <br><br>	   
- 	    
- 	    <!-- 수정 또는 삭제가  실패한 경우 exception 객체에 저장된 오류 메시지를 출력 -->
+	 	<br>
+	    <!-- 수정 또는 삭제가  실패한 경우 exception 객체에 저장된 오류 메시지를 출력 -->
         <c:if test="${updateFailed || deleteFailed}">
-	      <font color="red"><c:out value="${exception.getMessage()}" /></font>
-	    </c:if>    
-	  </td>
-	</tr>
-  </table>  
+	    	<font color="red"><c:out value="${exception.getMessage()}" /></font>
+	    </c:if>  
+	    <table width="60%" cellpadding="0" cellspacing="0">
+			<tr>
+				<td height="30" align="left">
+					<h3><a href="<c:url value='/user/list' />" class="main">목록</a> </h3>
+				</td>
+				<td height="30" align="right">
+					<h3>
+					<a href="<c:url value='/user/update'>
+		     		<c:param name='customerId' value='<%=customer.getCustomerId()%>'/>
+		     		</c:url>" class="write">수정</a>
+				 	</h3>
+				</td>
+			</tr>
+		</table>
+ 	    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </body>
 </html>

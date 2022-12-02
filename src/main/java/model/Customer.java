@@ -28,12 +28,12 @@ public class Customer {
 		this.phone = phone;
 	}
 	
-	/*public void update(Customer updateCustomer) {
+	public void update(Customer updateCustomer) {
         this.pwd = updateCustomer.pwd;
         this.name = updateCustomer.name;
         this.phone = updateCustomer.phone;
         this.email = updateCustomer.email;
-    }*/
+    }
 	
 	public String getCustomerId() {
 		return customerId;

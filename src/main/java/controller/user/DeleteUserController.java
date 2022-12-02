@@ -38,7 +38,7 @@ public class DeleteUserController implements Controller {
 		
 		/* 삭제가 불가능한 경우 */
 		Customer customer = manager.findCustomer(deleteId);	// 사용자 정보 검색
-		request.setAttribute("user", customer);						
+		request.setAttribute("customer", customer);						
 		request.setAttribute("deleteFailed", true);
 		String msg = (UserSessionUtils.isLoginUser("admin", session)) 
 				   ? "시스템 관리자 정보는 삭제할 수 없습니다."		

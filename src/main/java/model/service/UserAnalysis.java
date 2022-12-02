@@ -1,6 +1,7 @@
 package model.service;
 
 import java.util.ArrayList;
+
 import java.util.Iterator;
 import java.util.List;
 
@@ -19,29 +20,29 @@ public class UserAnalysis {
 	}
 
 	// an example business method
-	public List<Customer> recommendFriends(String userId) throws Exception {
-		Customer thisuser = dao.findCustomer(userId);
+	public List<Customer> recommendFriends(String customerId) throws Exception {
+		Customer thisuser = dao.findCustomer(customerId);
 		if (thisuser == null) {
 			throw new Exception("invalid user ID!");
 		}
-		int m1 = userId.indexOf('@');
+		int m1 = customerId.indexOf('@');
 		if (m1 == -1) return null;
 		String mserver1 = thisuser.getEmail().substring(m1);
 		
 		List<Customer> friends = new ArrayList<Customer>();
 		
-		List<Customer> userList = dao.findCustomerList(1, 10000);
-		Iterator<Customer> userIter = userList.iterator();		
+		List<Customer> customerList = dao.findCustomerList(1, 10000);
+		Iterator<Customer> userIter = customerList.iterator();		
 		while (userIter.hasNext()) {
-			Customer user = (Customer)userIter.next();
+			Customer customer = (Customer)userIter.next();
 			
-			if (user.getCustomerId().equals(userId)) continue;
-			int m2 = user.getEmail().indexOf('@');
+			if (customer.getCustomerId().equals(customerId)) continue;
+			int m2 = customer.getEmail().indexOf('@');
 			if (m2 == -1) continue;
-			String mserver2 = user.getEmail().substring(m2);
+			String mserver2 = customer.getEmail().substring(m2);
 
 			if (mserver1.equals(mserver2)) 
-				friends.add(user);		
+				friends.add(customer);		
 		}
 		return friends;
 	}

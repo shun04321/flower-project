@@ -3,6 +3,7 @@ package controller.user;
 import java.util.List;
 
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -29,7 +30,7 @@ public class UpdateUserController implements Controller {
     		
     		UserManager manager = UserManager.getInstance();
     		Customer customer = manager.findCustomer(updateId);	// 수정하려는 사용자 정보 검색
-			request.setAttribute("user", customer);			
+			request.setAttribute("customer", customer);			
 
 			HttpSession session = request.getSession();
 			if (UserSessionUtils.isLoginUser(updateId, session) ||
@@ -47,7 +48,7 @@ public class UpdateUserController implements Controller {
 	    }	
     	
     	// POST request (회원정보가 parameter로 전송됨)
-    	Customer update = new Customer(
+    	Customer updateUser = new Customer(
     		request.getParameter("customerId"),
     		request.getParameter("pwd"),
     		request.getParameter("name"),
@@ -55,10 +56,10 @@ public class UpdateUserController implements Controller {
     		request.getParameter("email"),
     		request.getParameter("address"));
 
-    	log.debug("Update User : {}", update);
+    	log.debug("Update User : {}", updateUser);
 
 		UserManager manager = UserManager.getInstance();
-		manager.updateCustomer(update);			
+		manager.updateCustomer(updateUser);			
         return "redirect:/user/list";			
     }
 }
