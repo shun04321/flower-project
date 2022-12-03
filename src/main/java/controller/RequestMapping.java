@@ -27,7 +27,7 @@ public class RequestMapping {
         mappings.put("/product/view", new ViewProductController());
         mappings.put("/product/add", new ManageProductController());
         mappings.put("/product/update", new ManageProductController());
-        mappings.put("/product/delete", new ManageProductController())
+        mappings.put("/product/delete", new ManageProductController());
        
         // 클래스 관련 request URI
         mappings.put("/class/list", new ListClassController());
