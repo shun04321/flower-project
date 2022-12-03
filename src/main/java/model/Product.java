@@ -9,6 +9,11 @@ public class Product {
 	private String category;
 	private String sellerId;
 	
+	public Product() {
+		super();
+	}
+
+	
 	public Product(int productId, String name, int price, String description, String type, String category) {
 		super();
 		this.productId = productId;
@@ -19,8 +24,7 @@ public class Product {
 		this.category = category;
 	}
 
-	public Product(int productId, String name, int price, String description, String type, String category,
-			String sellerId) {
+	public Product(int productId, String name, int price, String description, String type, String category, String sellerId) {
 		super();
 		this.productId = productId;
 		this.name = name;
@@ -92,7 +96,5 @@ public class Product {
 		return "Product [productId=" + productId + ", name=" + name + ", price=" + price + ", description="
 				+ description + ", type=" + type + ", category=" + category + ", sellerId=" + sellerId + "]";
 	}
-	
-	
 	
 }

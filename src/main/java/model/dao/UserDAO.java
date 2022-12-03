@@ -100,58 +100,6 @@ public class UserDAO {
 		}		
 		return 0;
 	}
-
-	// Customer 로그인
-	public int loginCustomer(String customerId, String pwd) throws SQLException {
-		String sql = "SELECT pwd FROM customer WHERE customerId=?";		
-		jdbcUtil.setSqlAndParameters(sql, new Object[] {customerId});
-		
-		try {				
-			int result = jdbcUtil.executeUpdate();
-
-			if(result.next()) {
-				if(result.getString(1).equals(pwd))
-					return 1; //사용자 로그인 성공
-				else 
-					return 0; //비밀번호 불일치
-			}
-			return -1; //존재하지 않는 아이디
-		} catch (Exception ex) {
-			jdbcUtil.rollback();
-			ex.printStackTrace();
-		}
-		finally {
-			jdbcUtil.commit();
-			jdbcUtil.close();
-		}		
-		return 0;
-	}
-	
-	// Seller 로그인
-	public int loginSeller(String sellerId, String pwd) throws SQLException {
-		String sql = "SELECT pwd FROM seller WHERE sellerId=?";		
-		jdbcUtil.setSqlAndParameters(sql, new Object[] {sellerId});
-		
-		try {				
-			int result = jdbcUtil.executeUpdate();
-
-			if(result.next()) {
-				if(result.getString(1).equals(pwd))
-					return 1; //사용자 로그인 성공
-				else 
-					return 0; //비밀번호 불일치
-			}
-			return -1; //존재하지 않는 아이디
-		} catch (Exception ex) {
-			jdbcUtil.rollback();
-			ex.printStackTrace();
-		}
-		finally {
-			jdbcUtil.commit();
-			jdbcUtil.close();
-		}		
-		return 0;
-	}
 	
 	// Customer 회원 탈퇴
 	public int removeCustomer(String customerId) throws SQLException {
@@ -209,7 +157,7 @@ public class UserDAO {
 				Customer customer = new Customer(
 					rs.getString("customerId"),
 					rs.getString("name"),
-					rs.getString("phone"),
+					rs.getString("phone"));
 				customerList.add(customer);
 			}		
 			return customerList;					
@@ -238,7 +186,7 @@ public class UserDAO {
 					Customer customer = new Customer(
 						rs.getString("customerId"),
 						rs.getString("name"),
-						rs.getString("phone"),
+						rs.getString("phone"));
 					customerList.add(customer);
 				} while ((rs.next()) && (--countPerPage > 0));		
 				
