@@ -1,4 +1,3 @@
-<!-- 유효성검사, 전화번호주소 합치기 -->
 <%@page contentType="text/html; charset=utf-8" %>
 <%@page import="model.*" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -38,14 +37,23 @@
 </style>
 <script>
 function userModify() {
-	if (form.pwd.value == "") {
-		alert("비밀번호를 입력하십시오.");
-		form.pwd.focus();
+	var customerIdExp = /^[a-z0-9]{4,16}$/;
+	if(customerIdExp.test(form.customerId.value)==false) {
+		alert("아이디 형식이 올바르지 않습니다.");
+		form.customerId.focus();
 		return false;
 	}
+	
+    var pwdExp = /^[a-zA-Z0-9#?!@$%^&*-]{8,16}$/;
+    if(pwdExp.test(form.pwd.value)==false) {
+    	alert("비밀번호 형식이 올바르지 않습니다.");
+    	form.pwd.focus();
+    	return false;
+    }
+    
 	if (form.pwd.value != form.pwd2.value) {
 		alert("비밀번호가 일치하지 않습니다.");
-		form.name.focus();
+		form.pw2.focus();
 		return false;
 	}
 	if (form.name.value == "") {
@@ -53,12 +61,28 @@ function userModify() {
 		form.name.focus();
 		return false;
 	}
-	//var phoneExp = /^\d{2,3}-\d{3,4}-\d{4}$/;
-	//if(phoneExp.test(form.phone.value)==false) {
-	//	alert("전화번호 형식이 올바르지 않습니다.");
-	//	form.phone.focus();
-	//	return false;
-	//}
+		
+	var phone1Exp = /^\d{2,3}$/;
+	if(phone1Exp.test(form.phone1.value)==false) {
+		alert("전화번호 형식이 올바르지 않습니다.");
+		form.phone1.focus();
+		return false;
+	}
+	
+	var phone2Exp = /^\d{3,4}$/;
+	if(phone2Exp.test(form.phone2.value)==false) {
+		alert("전화번호 형식이 올바르지 않습니다.");
+		form.phone2.focus();
+		return false;
+	}
+	
+	var phone3Exp = /^\d{4}$/;
+	if(phone3Exp.test(form.phone3.value)==false) {
+		alert("전화번호 형식이 올바르지 않습니다.");
+		form.phone3.focus();
+		return false;
+	}
+
 	var emailExp = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
 	if(emailExp.test(form.email.value)==false) {
 		alert("이메일 형식이 올바르지 않습니다.");
@@ -66,6 +90,23 @@ function userModify() {
 		return false;
 	}
 
+	if (form.addr1.value == "") {
+		alert("주소를 입력하십시오.");
+		form.addr1.focus();
+		return false;
+	}
+	if (form.addr2.value == "") {
+		alert("주소를 입력하십시오.");
+		form.addr2.focus();
+		return false;
+	}
+	if (form.addr3.value == "") {
+		alert("주소를 입력하십시오.");
+		form.addr3.focus();
+		return false;
+	}
+	
+	alert('회원 정보가 수정되었습니다.');
 	form.submit();
 }
 
@@ -150,8 +191,6 @@ function sample4_execDaumPostcode() {
 			<td style="border-left: 1px solid #eeeeee;">
 				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 					<input name="customerId" type="text" size="15" maxlength="16" value="${customer.customerId}" readonly>
-					&nbsp&nbsp
-					<input class="button" type="button" value="중복 체크" onClick="idCheck()">
 					&nbsp
 					<font size="2">(영문 소문자/숫자, 4~16자)</font>
 			</td>
