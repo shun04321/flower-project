@@ -14,22 +14,24 @@ public class ProductDAO {
 	} 
 	
 	// 상품 추가
-	public Product add(Product product) throws SQLException{
-		String query = "insert into product(productId, sellerId, price, description, name, category, type) "
-				+ "values(Sequence_product.nextVal, ?, ?, ?, ?, ?)";
+
+	public int add(Product product) throws SQLException{
+		String query = "INSERT INTO product (productId, sellerId, price, description, name, category, type) "
+				+ "VALUES (Sequence_product.nextVal, ?, ?, ?, ?, ?, ?)";
 		Object[] param = new Object[] {product.getSellerId(), product.getPrice(), product.getDescription(),
 				product.getName(), product.getCategory(), product.getType()};
 		jdbcUtil.setSqlAndParameters(query, param);
 		String key[] = {"productId"};
 	
 		try {
-			jdbcUtil.executeUpdate(key);
+			int result = jdbcUtil.executeUpdate(key);
 			ResultSet rs = jdbcUtil.getGeneratedKeys();
 			if(rs.next()) {
 				int generatedKey = rs.getInt(1);
 				product.setProductId(generatedKey);
 			}
-			return product;
+       System.out.println("product 추가 성공");
+			return result;
 		} catch (Exception e) {
 			jdbcUtil.rollback();
 			e.printStackTrace();
@@ -37,14 +39,14 @@ public class ProductDAO {
 			jdbcUtil.commit();
 			jdbcUtil.close();
 		}
-		return null; // 추가한 뒤 해당 객체 반환
+		return 0; 
 	}
 	
 	// 상품 수정
 	public int update(Product product) throws SQLException{
-		String query = "update product set sellerId = ?, price = ?, description = ?, name = ? where productId = ?";
-		Object[] param = new Object[] {product.getSellerId(), product.getPrice(), product.getDescription(), 
-				product.getName(), product.getProductId()};
+		String query = "UPDATE product SET name = ?, price = ?, description = ?, category = ? WHERE productId = ?";
+		Object[] param = new Object[] {product.getName(), product.getPrice(), product.getDescription(),
+				 product.getCategory(), product.getProductId()};
 		jdbcUtil.setSqlAndParameters(query, param);
 		
 		try {
@@ -61,8 +63,8 @@ public class ProductDAO {
 	}
 	
 	// 상품 삭제
-	public int remove(String productId) throws SQLException{
-		String query = "delete from product where productId = ?";
+	public int remove(int productId) throws SQLException{
+		String query = "DELETE FROM product WHERE productId = ?";
 		jdbcUtil.setSqlAndParameters(query, new Object[] {productId});
 		
 		try {
@@ -80,17 +82,19 @@ public class ProductDAO {
 	
 	// 이름으로 상품 검색
 	public List<Product> findProductByName(String name){
-		String query = "select * from product where name = ?";
-		jdbcUtil.setSqlAndParameters(query, new Object[] {name});
+		String query = "SELECT * FROM product WHERE name LIKE ?";
+		String temp = "%" + name + "%";
+		
+		jdbcUtil.setSqlAndParameters(query, new Object[] {temp});
 		
 		try {
 			ResultSet rs = jdbcUtil.executeQuery();
-			List<Product> productList = new ArrayList<>();
+			List<Product> productList = new ArrayList<Product>();
 			
 			while(rs.next()) {
 				Product product = new Product(
 						rs.getInt("productId"),
-						name,
+						rs.getString("name"),
 						rs.getInt("price"),
 						rs.getString("description"),
 						rs.getString("type"),
@@ -108,7 +112,7 @@ public class ProductDAO {
 	
 	// 전체 상품 목록 조회(음식/꽃 구분)
 	public List<Product> findProductList(String type){
-		String query = "select * from product where type = ? order by productId"; // 필요한 속성만 검색하기
+		String query = "SELECT * FROM product WHERE type = ? ORDER BY productId"; // 필요한 속성만 검색하기
 		jdbcUtil.setSqlAndParameters(query, new Object[] {type});
 		
 		try {
@@ -123,8 +127,14 @@ public class ProductDAO {
 						rs.getString("description"),
 						type,
 						rs.getString("category"));
+				
+				System.out.println("[" + rs.getInt("productId") + ", "
+						+ rs.getString("name") + ", " + rs.getInt("price") + ", " 
+						+ rs.getString("description") + ", " + type + ", " + rs.getString("category") + "]");
+				
 				productList.add(product);
 			}
+			
 			return productList;
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -136,7 +146,7 @@ public class ProductDAO {
 	
 	// 상품 상세 조회
 	public Product findProduct(int productId) {
-		String query = "select * from product where productId = ?";
+		String query = "SELECT * FROM product WHERE productId = ?";
 		jdbcUtil.setSqlAndParameters(query, new Object[] {productId});
 		Product product = null;
 		
@@ -151,6 +161,11 @@ public class ProductDAO {
 						rs.getString("description"),
 						rs.getString("type"),
 						rs.getString("category"));
+				
+				System.out.println("[" + rs.getInt("productId") + ", "
+						+ rs.getString("name") + ", " + rs.getInt("price") + ", " 
+						+ rs.getString("description") + ", " + rs.getString("type") + ", " + rs.getString("category") + "]");
+				
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
