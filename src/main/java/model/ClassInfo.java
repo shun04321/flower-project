@@ -8,6 +8,15 @@ public class ClassInfo {
 	private int currentNum;
 	private String sellerId;
 	
+	public ClassInfo(int classId, String name, String date, int maxNum, int currentNum) {
+		super();
+		this.classId = classId;
+		this.name = name;
+		this.date = date;
+		this.maxNum = maxNum;
+		this.currentNum = currentNum;
+	}
+
 	public ClassInfo(int classId, String name, String date, int maxNum, int currentNum, String sellerId) {
 		super();
 		this.classId = classId;
@@ -17,6 +26,8 @@ public class ClassInfo {
 		this.currentNum = currentNum;
 		this.sellerId = sellerId;
 	}
+
+
 
 	public int getClassId() {
 		return classId;

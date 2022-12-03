@@ -14,7 +14,8 @@ public class ProductDAO {
 	} 
 	
 	// 상품 추가
-	public Product add(Product product) throws SQLException{
+
+	public int add(Product product) throws SQLException{
 		String query = "INSERT INTO product (productId, sellerId, price, description, name, category, type) "
 				+ "VALUES (Sequence_product.nextVal, ?, ?, ?, ?, ?, ?)";
 		Object[] param = new Object[] {product.getSellerId(), product.getPrice(), product.getDescription(),
@@ -23,14 +24,14 @@ public class ProductDAO {
 		String key[] = {"productId"};
 	
 		try {
-			jdbcUtil.executeUpdate(key);
+			int result = jdbcUtil.executeUpdate(key);
 			ResultSet rs = jdbcUtil.getGeneratedKeys();
 			if(rs.next()) {
 				int generatedKey = rs.getInt(1);
 				product.setProductId(generatedKey);
 			}
-			System.out.println("product 추가 성공");
-			return product;
+       System.out.println("product 추가 성공");
+			return result;
 		} catch (Exception e) {
 			jdbcUtil.rollback();
 			e.printStackTrace();
@@ -38,15 +39,14 @@ public class ProductDAO {
 			jdbcUtil.commit();
 			jdbcUtil.close();
 		}
-		return null; // 추가한 뒤 해당 객체 반환
+		return 0; 
 	}
 	
 	// 상품 수정
 	public int update(Product product) throws SQLException{
-		String query = "UPDATE product SET price = ?, description = ?, name = ?, category = ? WHERE productId = ?";
-		
-		Object[] param = new Object[] {product.getPrice(), product.getDescription(), 
-				product.getName(), product.getCategory(), product.getProductId()};
+		String query = "UPDATE product SET name = ?, price = ?, description = ?, category = ? WHERE productId = ?";
+		Object[] param = new Object[] {product.getName(), product.getPrice(), product.getDescription(),
+				 product.getCategory(), product.getProductId()};
 		jdbcUtil.setSqlAndParameters(query, param);
 		
 		try {
