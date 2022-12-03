@@ -7,7 +7,7 @@ public class Product {
 	private String description;
 	private String type;
 	private String category;
-	private int sellerId;
+	private String sellerId;
 	
 	public Product(int productId, String name, int price, String description, String type, String category) {
 		super();
@@ -17,6 +17,18 @@ public class Product {
 		this.description = description;
 		this.type = type;
 		this.category = category;
+	}
+
+	public Product(int productId, String name, int price, String description, String type, String category,
+			String sellerId) {
+		super();
+		this.productId = productId;
+		this.name = name;
+		this.price = price;
+		this.description = description;
+		this.type = type;
+		this.category = category;
+		this.sellerId = sellerId;
 	}
 
 	public int getProductId() {
@@ -67,11 +79,11 @@ public class Product {
 		this.category = category;
 	}
 
-	public int getSellerId() {
+	public String getSellerId() {
 		return sellerId;
 	}
 
-	public void setSellerId(int sellerId) {
+	public void setSellerId(String sellerId) {
 		this.sellerId = sellerId;
 	}
 

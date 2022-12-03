@@ -14,20 +14,20 @@ public class ClassDAO {
 	} 
 	
 	// 클래스 추가
-	public ClassInfo add(ClassInfo c) {
+	public int add(ClassInfo c) {
 		String query = "insert into class(classId, sellerId, name, classDate, maxNum, currentNum) values(Sequence_class.nextVal, ?, ?, ?, ?, ?)";
 		Object[] param = new Object[] {c.getSellerId(), c.getName(), c.getDate(), c.getMaxNum(), c.getCurrentNum()};
 		jdbcUtil.setSqlAndParameters(query, param);
 		String key[] = {"classId"};
 		
 		try {
-			jdbcUtil.executeUpdate(key);
+			int result = jdbcUtil.executeUpdate(key);
 			ResultSet rs = jdbcUtil.getGeneratedKeys();
 			if(rs.next()) {
 				int generatedKey = rs.getInt(1);
 				c.setClassId(generatedKey);
 			}
-			return c;
+			return result;
 		} catch (Exception e) {
 			jdbcUtil.rollback();
 			e.printStackTrace();
@@ -35,7 +35,7 @@ public class ClassDAO {
 			jdbcUtil.commit();
 			jdbcUtil.close();
 		}
-		return null; // 추가한 뒤 해당 객체 반환
+		return 0; 
 	}
 	
 	// 클래스 정보 수정
@@ -75,7 +75,7 @@ public class ClassDAO {
 		return 0; // 성공적으로 수행된 개수 반환
 	}
 	
-	// 전체 상품 목록 조회
+	// 전체 목록 조회
 	public List<ClassInfo> findClassList(){
 		String query = "select * from class";
 		jdbcUtil.setSqlAndParameters(query, null);
@@ -88,7 +88,7 @@ public class ClassDAO {
 				ClassInfo c = new ClassInfo(
 						rs.getInt("classId"),
 						rs.getString("name"),
-						rs.getString("date"),
+						rs.getString("classDate"),
 						rs.getInt("maxNum"),
 						rs.getInt("currentNum"),
 						rs.getString("sellerId"));
@@ -103,7 +103,7 @@ public class ClassDAO {
 		return null;
 	}
 	
-	// 상품 상세 조회
+	// 상세 조회
 	public ClassInfo findClass(int classId) {
 		String query = "select * from class where classId = ?";
 		jdbcUtil.setSqlAndParameters(query, new Object[] {classId});
@@ -116,7 +116,7 @@ public class ClassDAO {
 				c = new ClassInfo(
 						classId,
 						rs.getString("name"),
-						rs.getString("date"),
+						rs.getString("classate"),
 						rs.getInt("maxNum"),
 						rs.getInt("currentNum"),
 						rs.getString("sellerId"));

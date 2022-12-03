@@ -14,22 +14,22 @@ public class ProductDAO {
 	} 
 	
 	// 상품 추가
-	public Product add(Product product) throws SQLException{
+	public int add(Product product) throws SQLException{
 		String query = "insert into product(productId, sellerId, price, description, name, category, type) "
-				+ "values(Sequence_product.nextVal, ?, ?, ?, ?, ?)";
+				+ "values(Sequence_product.nextVal, ?, ?, ?, ?, ?, ?)";
 		Object[] param = new Object[] {product.getSellerId(), product.getPrice(), product.getDescription(),
 				product.getName(), product.getCategory(), product.getType()};
 		jdbcUtil.setSqlAndParameters(query, param);
 		String key[] = {"productId"};
 	
 		try {
-			jdbcUtil.executeUpdate(key);
+			int result = jdbcUtil.executeUpdate(key);
 			ResultSet rs = jdbcUtil.getGeneratedKeys();
 			if(rs.next()) {
 				int generatedKey = rs.getInt(1);
 				product.setProductId(generatedKey);
 			}
-			return product;
+			return result;
 		} catch (Exception e) {
 			jdbcUtil.rollback();
 			e.printStackTrace();
@@ -37,14 +37,14 @@ public class ProductDAO {
 			jdbcUtil.commit();
 			jdbcUtil.close();
 		}
-		return null; // 추가한 뒤 해당 객체 반환
+		return 0; 
 	}
 	
 	// 상품 수정
 	public int update(Product product) throws SQLException{
-		String query = "update product set sellerId = ?, price = ?, description = ?, name = ? where productId = ?";
-		Object[] param = new Object[] {product.getSellerId(), product.getPrice(), product.getDescription(), 
-				product.getName(), product.getProductId()};
+		String query = "update product set name = ?, price = ?, description = ?, category = ? where productId = ?";
+		Object[] param = new Object[] {product.getName(), product.getPrice(), product.getDescription(),
+				 product.getCategory(), product.getProductId()};
 		jdbcUtil.setSqlAndParameters(query, param);
 		
 		try {
@@ -61,7 +61,7 @@ public class ProductDAO {
 	}
 	
 	// 상품 삭제
-	public int remove(String productId) throws SQLException{
+	public int remove(int productId) throws SQLException{
 		String query = "delete from product where productId = ?";
 		jdbcUtil.setSqlAndParameters(query, new Object[] {productId});
 		

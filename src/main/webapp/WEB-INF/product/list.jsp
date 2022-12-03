@@ -1,14 +1,57 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
+<script>
+function productDelete() {
+	return confirm("ì •ë§ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?");		
+}
+</script>
 <head>
-<meta charset="EUC-KR">
-<title>»óÇ° ¸ñ·Ï</title>
+<title>ìƒí’ˆ ëª©ë¡</title>
 </head>
+
 <body>
-<!-- hidden ¹öÆ°: add - ÆÇ¸ÅÀÚ·Î ·Î±×ÀÎ ½Ã¿¡¸¸ ÇØ´ç ¹öÆ° º¸ÀÌµµ·Ï -->
-<!-- »óÇ° ¸®½ºÆ®, °¢ Ç×¸ñ Å¬¸¯ ½Ã ÇØ´ç »óÇ° »ó¼¼º¸±â ÆäÀÌÁö·Î ÀÌµ¿ -->
-<!-- °¢ »óÇ°¸¶´Ù hidden ¹öÆ°: update/delete - ÆÇ¸ÅÀÚ·Î ·Î±×ÀÎ ½Ã¿¡¸¸ ÇØ´ç ¹öÆ° º¸ÀÌµµ·Ï  -->
+<div>
+	<a href="<c:url value='/product/add'></c:url>">ì¶”ê°€</a>
+</div>
+<div class="productList">
+	<table>
+		<thead>
+			<tr>
+				<td>ìƒí’ˆëª…</td>
+				<td>ê°€ê²©</td>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="product" items="${productList}">
+				<tr>
+					<td>
+					<a href="<c:url value='/product/view'>
+							<c:param name='productId' value='${product.productId}'/>
+							</c:url>">
+					  	${product.name}</a>
+					</td>
+					<td>
+						${product.price}
+					</td>
+					<td>
+					<a href="<c:url value='/product/update'>
+							<c:param name='productId' value='${product.productId}'/>
+							</c:url>">
+					  	ìˆ˜ì •</a>
+					</td>
+					<td>
+					<a href="<c:url value='/product/delete'>
+							<c:param name='productId' value='${product.productId}'/>
+							</c:url>" onclick="return productDelete();">
+					  	ì‚­ì œ</a>
+					</td>
+				<tr>
+			</c:forEach>
+		</tbody>
+	</table>
+</div>
 </body>
 </html>
