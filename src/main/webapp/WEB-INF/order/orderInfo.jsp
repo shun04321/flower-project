@@ -1,10 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>ÁÖ¹® Á¤º¸</title>
+<title>ì£¼ë¬¸ ì •ë³´</title>
 <style>
   div{
     margin : 50px;
@@ -18,12 +16,12 @@
     padding: 10px;
   }
 </style>
-<script>
+<script type="text/javascript">
   function copy() {
-    if(document.getElementById("same").checked)
+    if(document.getElementById("cb1").checked)
     {
-      document.getElementById("name1").value = document.getElementById("name2").value;
-      document.getElementById("phone1").value = document.getElementById("phone2").value;
+      document.getElementById("name2").value = document.getElementById("name1").value;
+      document.getElementById("phone2").value = document.getElementById("phone1").value;
     }
   }
 </script>
@@ -31,13 +29,13 @@
 <body>
   <div class="orderInfo">
   <table \ width="60%">
-    <caption>ÁÖ¹®ÀÚ Á¤º¸</caption>
+    <caption>ì£¼ë¬¸ì ì •ë³´</caption>
     <tr>
-      <td>ÁÖ¹®ÀÚ ÀÌ¸§ *</td>
+      <td>ì£¼ë¬¸ì ì´ë¦„ *</td>
       <td><input type="text" id="name1" size="28" required></td>
     </tr>
     <tr>
-      <td>ÈŞ´ëÆù ¹øÈ£ *</td>
+      <td>íœ´ëŒ€í° ë²ˆí˜¸ *</td>
       <td>
         <input type="tel" list="phone1" size="4" required>
         <datalist id="phone1" >
@@ -55,7 +53,7 @@
       </td>
     </tr>
     <tr>
-      <td>ÀÌ¸ŞÀÏ *</td>
+      <td>ì´ë©”ì¼ *</td>
       <td>
       <input type="email" id="email" size="7" required>
       <label for="phone">@</label>
@@ -74,18 +72,18 @@
   <br>
 </div>
 <div class="deliver">
-  <label><input type="checkbox" name="same" value="">ÁÖ¹®ÀÚ Á¤º¸¿Í µ¿ÀÏ</label>
+  <label><input type="checkbox" id="cb1" onclick="copy();">ì£¼ë¬¸ì ì •ë³´ì™€ ë™ì¼</label>
   <table width="60%">
-    <caption>¹è¼Û Á¤º¸</caption>
+    <caption>ë°°ì†¡ ì •ë³´</caption>
     <tr>
-      <td>¹ŞÀ¸½Ã´Â ºĞ *</td>
+      <td>ë°›ìœ¼ì‹œëŠ” ë¶„ *</td>
       <td><input type="text" id="name2" size="28" required></td>
     </tr>
     <tr>
-      <td>ÈŞ´ëÆù ¹øÈ£ *</td>
+      <td>íœ´ëŒ€í° ë²ˆí˜¸ *</td>
       <td>
         <input type="tel" list="phone2" size="4" required>
-        <datalist id="phone1" >
+        <datalist id="phone2" >
           <option>010</option>
           <option>011</option>
           <option>019</option>
@@ -100,34 +98,34 @@
       </td>
       </tr>
       <tr>
-        <td>¹è¼ÛÁö ÁÖ¼Ò *</td>
+        <td>ë°°ì†¡ì§€ ì£¼ì†Œ *</td>
       <td>
-        <input type="text" name="zipcode" maxlength="5" size="14" placeholder="¿ìÆí¹øÈ£" required>
-        <button type="button">¿ìÆí¹øÈ£ Ã£±â</button>
+        <input type="text" name="zipcode" maxlength="5" size="14" placeholder="ìš°í¸ë²ˆí˜¸" required>
+        <button type="button">ìš°í¸ë²ˆí˜¸ ì°¾ê¸°</button>
       </td>
       </tr>
       <tr>
         <td></td>
         <td>
-          <input type="text" name="address" size="18" placeholder="±âº» ÁÖ¼Ò" required>
-          <input type="text" name="address" size="16" placeholder="»ó¼¼ ÁÖ¼Ò" required>    
+          <input type="text" name="address" size="18" placeholder="ê¸°ë³¸ ì£¼ì†Œ" required>
+          <input type="text" name="address" size="16" placeholder="ìƒì„¸ ì£¼ì†Œ" required>    
         </td>
       </tr>
       <tr>
-        <td>¸Ş¸ğ</td>
+        <td>ë©”ëª¨</td>
         <td><textarea cols="42" rows="8"></textarea></td>
       </tr>
   </table>
 </div>
 <div class="reservation">
   <table width="60%">
-    <caption>¿¹¾à Á¤º¸</caption>
+    <caption>ì˜ˆì•½ ì •ë³´</caption>
     <tr>
-      <td>¹ŞÀ¸½Ã´Â ºĞ *</td>
+      <td>ë°›ìœ¼ì‹œëŠ” ë¶„ *</td>
       <td><input type="text" id="name2" size="28" required></td>
     </tr>
     <tr>
-      <td>ÈŞ´ëÆù ¹øÈ£ *</td>
+      <td>íœ´ëŒ€í° ë²ˆí˜¸ *</td>
       <td>
         <input type="tel" list="phone2" size="4" required>
       <datalist id="phone1" >
@@ -145,12 +143,12 @@
       </td>
     </tr>
     <tr>
-      <td>¼ö·É ³¯Â¥ *</td>
+      <td>ìˆ˜ë ¹ ë‚ ì§œ *</td>
       <td><input type="date" id="recievedate">
-        <input type="text" id="recievedate2" size="12" placeholder="Á÷Á¢ ÀÔ·Â"></td>
+        <input type="text" id="recievedate2" size="12" placeholder="ì§ì ‘ ì…ë ¥"></td>
     </tr>
     <tr>
-      <td>¸Ş¸ğ</td>
+      <td>ë©”ëª¨</td>
       <td><textarea cols="37" rows="8"></textarea></td>
     </tr>
   </table>
