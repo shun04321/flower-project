@@ -95,8 +95,10 @@ public class OrderDAO {
 				LineItem lineItem = new LineItem(
 					rs.getString("lineItemId"),
 					orderId,
-					rs.getInt("poductId"),					
+					rs.getInt("productId"),					
 					rs.getInt("quantity"));
+				
+				System.out.println(lineItem.toString());
 				return lineItem;
 			}
 		} catch (Exception ex) {
@@ -113,8 +115,8 @@ public class OrderDAO {
 	   
 	   try {
 		   //order
-		   String query1 = "INSERT INTO orders (orderId, customerId, receiveType, receiverName, receiverPhone, memo, receiverAddress) "
-		   		+ "VALUES (Sequence_order.nextVal, ?, ?, ?, ?, ?, ?)";
+		   String query1 = "INSERT INTO orders (orderId, customerId, creationDate, receiveType, receiverName, receiverPhone, memo, receiverAddress) "
+		   		+ "VALUES (Sequence_order.nextVal, ?, SYSDATE, ?, ?, ?, ?, ?)";
 		   Object[] param1 = new Object[] {order.getCustomerId(), order.getReceiveType(),
 				   order.getReceiverName(), order.getReceiverPhone(), order.getMemo(), order.getReceiverAddress()};      
   
@@ -132,7 +134,7 @@ public class OrderDAO {
 			//lineItem insert
 			int i = 0;
 			for (int pId : productIds) {
-				String query2 = "INSERT INTO lineItem (Sequence_lineItem, orderId, productId, quantity) "
+				String query2 = "INSERT INTO lineItem (lineItemId, orderId, productId, quantity) "
 						+ "VALUES (Sequence_lineItem.nextVal, ?, ?, ?)";
 				Object[] param2 = new Object[] {order.getOrderId(), pId, quantity[i]};     
 				
