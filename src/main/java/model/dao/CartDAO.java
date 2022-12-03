@@ -45,6 +45,35 @@ public class CartDAO {
 		return null;	
 	}
 	
+	// orderId로 장바구니 항목 1개 조회(daotest 해보기)
+	public CartItem getCartItem(int cartItemId) {
+		String query = "SELECT cartItemId, quantity, productId FROM CartItem "
+				+ "WHERE cartItemId = ?";
+		
+		Object[] param = new Object[] {cartItemId};		// customerId = ? 의 매개변수 설정
+		jdbcUtil.setSqlAndParameters(query, param);
+		CartItem cartItem = null;
+				
+		try { 
+			ResultSet rs = jdbcUtil.executeQuery();		// query 문 실행		
+		
+			if (rs.next()) {	
+				cartItem = new CartItem(
+						cartItemId,
+						rs.getInt("quantity"),
+						rs.getString("customerId"),
+						rs.getInt("productId"));
+			}
+			return cartItem;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			jdbcUtil.close();
+		}		
+		return null;	
+	}
+
+	
 	// 장바구니에 등록
 	public int addItem(CartItem cartItem) {
 		String query = "INSERT INTO CartItem (cartItemId, productId, customerId, quantity) VALUES (Sequence_cartItem.nextVal, ?, ?, ?)";

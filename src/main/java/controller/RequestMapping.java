@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import controller.product.*;
+import controller.cart.ManageCartController;
 import controller.classes.*;
 import controller.user.*;
 
@@ -49,6 +50,11 @@ public class RequestMapping {
         
         // 커뮤니티 관련 request URI 추가
         mappings.put("/community/create/form", new ForwardController("/community/creationForm.jsp"));
+        
+        // 장바구니 관련
+        mappings.put("/cart/add", new ManageCartController());
+        mappings.put("/cart/update", new ManageCartController());
+        mappings.put("/cart/view", new ViewProductController());
         
         logger.info("Initialized Request Mapping!");
     }
