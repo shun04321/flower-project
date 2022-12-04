@@ -10,7 +10,7 @@ import controller.product.*;
 import controller.classes.*;
 import controller.order.*;
 import controller.user.*;
-
+import controller.cart.*;
 
 public class RequestMapping {
     private static final Logger logger = LoggerFactory.getLogger(DispatcherServlet.class);
@@ -36,6 +36,12 @@ public class RequestMapping {
         mappings.put("/class/update", new ManageClassController());
         mappings.put("/class/delete", new ManageClassController());
         
+        mappings.put("/user/login/form", new ForwardController("/user/loginForm.jsp"));
+        mappings.put("/user/login", new LoginController());
+        mappings.put("/user/logout", new LogoutController());
+        mappings.put("/user/list", new ListUserController());
+        mappings.put("/user/view", new ViewUserController());
+        
         // 회원 가입 폼 요청과 가입 요청 처리 병합 (폼에 커뮤니티 선택 메뉴 추가를 위함)
 //      mappings.put("/user/register/form", new ForwardController("/user/registerForm.jsp"));
 //      mappings.put("/user/register", new RegisterUserController());
@@ -50,6 +56,12 @@ public class RequestMapping {
         
         // 커뮤니티 관련 request URI 추가
         mappings.put("/community/create/form", new ForwardController("/community/creationForm.jsp"));
+        
+        // 장바구니 관련
+        mappings.put("/cart/add", new ManageCartController());
+        mappings.put("/cart/update", new ManageCartController());
+        mappings.put("/cart/view", new ViewCartController());
+        mappings.put("/cart/delete", new ManageCartController());
         
         //주문 관련
         mappings.put("/order/form", new OrderController());
