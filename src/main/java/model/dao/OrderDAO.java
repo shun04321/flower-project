@@ -15,7 +15,6 @@ public class OrderDAO {
    public OrderDAO() {
       jdbcUtil = new JDBCUtil();
    }
-   
    //주문 목록 조회(모든)
    public List<Orders> findOrderList() throws SQLException{
       String query = "SELECT * FROM orders ORDER BY orderId";
@@ -35,7 +34,8 @@ public class OrderDAO {
                   rs.getString("receiverName"),
                   rs.getString("receiverPhone"),
                   rs.getString("memo"),
-                  rs.getString("receiverAddress"));
+                  rs.getString("receiverAddress"),
+                  rs.getInt("price"));
             orderList.add(order);
             
             System.out.println(order.toString());
@@ -69,7 +69,8 @@ public class OrderDAO {
                   rs.getString("receiverName"),
                   rs.getString("receiverPhone"),
                   rs.getString("memo"),
-                  rs.getString("receiverAddress"));
+                  rs.getString("receiverAddress"),
+                  rs.getInt("price"));
             orderList.add(order);
             
             System.out.println(order.toString());
