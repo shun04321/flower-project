@@ -30,7 +30,7 @@ public class OrderController implements Controller{
 		//GET을 해둬
 		if(request.getMethod().equals("GET")) {
 			log.debug("OrderForm Request"); 
-			
+			 
 			
 			String customer = request.getParameter("customerId");
 			List<CartItem> cart = manager.getCartItemList(customer);
@@ -52,6 +52,7 @@ public class OrderController implements Controller{
 				request.getParameter("memo"),
 				request.getParameter("receiveAddress"),
 				0);
+		
 		
 		try {
 	        orderman.addOrder(order, null, null);
