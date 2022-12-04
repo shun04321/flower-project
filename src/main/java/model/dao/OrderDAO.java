@@ -37,7 +37,7 @@ public class OrderDAO {
                   rs.getString("receiverAddress"),
                   rs.getInt("price"));
             orderList.add(order);
-            
+             
             System.out.println(order.toString());
          }
          return orderList;

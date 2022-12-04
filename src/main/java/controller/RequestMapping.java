@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import controller.product.*;
 import controller.classes.*;
+import controller.order.*;
 import controller.user.*;
 
 
@@ -27,7 +28,7 @@ public class RequestMapping {
         mappings.put("/product/view", new ViewProductController());
         mappings.put("/product/add", new ManageProductController());
         mappings.put("/product/update", new ManageProductController());
-        mappings.put("/product/delete", new ManageProductController())
+        mappings.put("/product/delete", new ManageProductController());
        
         // 클래스 관련 request URI
         mappings.put("/class/list", new ListClassController());
@@ -49,6 +50,10 @@ public class RequestMapping {
         
         // 커뮤니티 관련 request URI 추가
         mappings.put("/community/create/form", new ForwardController("/community/creationForm.jsp"));
+        
+        //주문 관련
+        mappings.put("/order/form", new OrderController());
+        mappings.put("/order/list", new ListOrderController());
         
         logger.info("Initialized Request Mapping!");
     }

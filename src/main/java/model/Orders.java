@@ -1,5 +1,5 @@
 package model;
-
+ 
 import java.util.Date;
 
 public class Orders {
@@ -13,13 +13,14 @@ public class Orders {
    private String memo;
    //배송
    private String receiverAddress;
-   
-   public Orders() {
+   private int price;
+
+public Orders() { 
 	   super();
    }
 
 	public Orders(int orderId, String customerId, String receiveType, String receiverName,
-		String receiverPhone, String memo, String receiverAddress) {
+		String receiverPhone, String memo, String receiverAddress, int price) {
 	super();
 	this.orderId = orderId;
 	this.customerId = customerId;
@@ -28,10 +29,11 @@ public class Orders {
 	this.receiverPhone = receiverPhone;
 	this.memo = memo;
 	this.receiverAddress = receiverAddress;
+	this.price = price;
 }
 
 	public Orders(int orderId, String customerId, Date creationDate, String receiveType,
-		String receiverName, String receiverPhone, String memo, String receiverAddress) {
+		String receiverName, String receiverPhone, String memo, String receiverAddress, int price) {
 		super();
 		this.orderId = orderId;
 		this.customerId = customerId;
@@ -41,6 +43,7 @@ public class Orders {
 		this.receiverPhone = receiverPhone;
 		this.memo = memo;
 		this.receiverAddress = receiverAddress;
+		this.price = price;
 	}
 
 	public int getOrderId() {
@@ -106,12 +109,19 @@ public class Orders {
 	public void setReceiverAddress(String receiverAddress) {
 		this.receiverAddress = receiverAddress;
 	}
+	 public int getPrice() {
+			return price;
+		}
+	 
+	public void setPrice(int price) {
+		this.price = price;
+	}
 
 	@Override
 	public String toString() {
 		return "Orders [orderId=" + orderId + ", customerId=" + customerId + ", creationDate=" + creationDate
 				+ ", receiveType=" + receiveType + ", receiverName=" + receiverName + ", receiverPhone=" + receiverPhone
-				+ ", memo=" + memo + ", receiverAddress=" + receiverAddress + "]";
+				+ ", memo=" + memo + ", receiverAddress=" + receiverAddress + ", price=" + price + "]";
 	}
 	
 }

@@ -1,4 +1,4 @@
-package model.service;
+ package model.service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,7 +13,7 @@ public class OrderManager extends Exception{
 		private static OrderManager orderMan = new OrderManager();
 		private OrderDAO orderDAO;
 		
-		private OrderManager() {
+		private OrderManager() { 
 			try {
 				orderDAO = new OrderDAO();
 			}catch(Exception e) {
