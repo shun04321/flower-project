@@ -19,29 +19,29 @@
     padding: 10px;
   }
 </style>
-<!-- <script type="text/javascript">
+ <script type="text/javascript">
   function copy() {
     if(document.getElementById("cb1").checked)
     {
-      document.getElementById("name2").value = document.getElementById("name1").value;
-      document.getElementById("deliverphone2").value = document.getElementById("phone2").value;
+      document.getElementById("name2").value = ${order.productId};
+      document.getElementById("deliverphone2").value = ${customer.phone}.value;
       document.getElementById("deliverphone3").value = document.getElementById("phone3").value;
     }
   }
-</script> -->
+</script>
 </head>
 <body>
   <div class="radio">
     <form>
       <label><input type="radio" name="recieve" value="direct" onclick="check()" checked>직접 수령</label><br>
-      <label><input type="radio" name="recieve" value="deliver" onclick="check()">배송</label>
+      <label><input type="radio" name="recieve  " value="deliver" onclick="check()">배송</label>
     </form>
   </div>
   <div class="orderList">
     <table width="60%">
       <caption>주문 상품</caption>
       <tr>
-        <th></th>
+        <th> </th>
         <th>상품 정보</th>
         <th>수량</th>
         <th>상품 금액</th>
