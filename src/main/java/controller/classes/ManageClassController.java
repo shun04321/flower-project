@@ -60,6 +60,7 @@ public class ManageClassController implements Controller {
 				if(request.getMethod().equals("GET")) {
 					int updateId = Integer.parseInt(request.getParameter("classId"));
 					ClassInfo classInfo = manager.findClassInfo(updateId);
+					classInfo.setDate(classInfo.getDate().split(" ")[0]); // html에서 date type 변환을 위해: 2022-01-01 형식으로 변환
 					log.debug("ClassUpdateForm Request");
 					
 					// 여기에 해당 상품의 판매자인지 확인하는 코드 추가: if문으로 감싸기 
